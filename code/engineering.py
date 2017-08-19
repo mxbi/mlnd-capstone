@@ -31,11 +31,6 @@ if __name__ == '__main__':
 
     print(df_train.columns)
 
-    # # First, we construct x_train and x_test dataframes. These contain ONLY the features we use for training
-    # drop_features = ['pickup_datetime']
-    # x_train = df_train.drop(drop_features, axis=1)
-    # x_test = df_test.drop(drop_features, axis=1)
-
     print('Creating distance features ...')
 
     # Map the three distance functions over all samples in the training set
@@ -72,9 +67,7 @@ if __name__ == '__main__':
 
     # Apply a groupby operation over unique dates in order to get the number of trips on each day
     df_all = pd.concat([df_train[['day', 'hour']], df_test[['day', 'hour']]])  # Combine the two datasets so metrics can be computed over all the data
-    # df_all['day'] = df_all['pickup_datetime'].apply(lambda x: x.split(' ')[0])  # Extract the day from the datetime string
     daily_traffic = df_all.groupby('day')['day'].count()  # Count the number of trips on each day
-    # df_all['hour'] = df_all['pickup_datetime'].apply(lambda x: x.split(':')[0])  # Extract the day + hour
     hourly_traffic = df_all.groupby('hour')['hour'].count()  # Count the number of trips in each hour
 
     print(daily_traffic.head())
@@ -86,4 +79,4 @@ if __name__ == '__main__':
     x_test['daily_count'] = df_test['day'].apply(lambda day: daily_traffic[day])
     x_test['hourly_count'] = df_test['hour'].apply(lambda hour: hourly_traffic[hour])
 
-    print(x_train[['daily_count', 'hourly_count']])
+    print(x_train[['daily_count', 'hourly_count']].head())

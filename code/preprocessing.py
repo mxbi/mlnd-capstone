@@ -25,8 +25,8 @@ if __name__ == '__main__':
     df_test['unix_time'] = [np.int64(t.value) / 1000000000 for t in df_test['timestamp']]
 
     # Create minute of day feature
-    df_train['daily_minute'] = [t.hour*60 + t.minute for t in df_train['timestamp']]
-    df_test['daily_minute'] = [t.hour*60 + t.minute for t in df_test['timestamp']]
+    df_train['daily_minute'] = [t.hour * 60 + t.minute for t in df_train['timestamp']]
+    df_test['daily_minute'] = [t.hour * 60 + t.minute for t in df_test['timestamp']]
 
     # Create day of week feature
     df_train['day_of_week'] = [t.dayofweek for t in df_train['timestamp']]
