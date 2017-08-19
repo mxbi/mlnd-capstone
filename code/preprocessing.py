@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 
-if __name__ == '__main__':
+def main():
     print('Reading data into memory ...')
 
     # Read in the input dataset
@@ -46,3 +46,7 @@ if __name__ == '__main__':
 
     # Use pickle to dump our working data to disk so we can use it again in the future.
     pickle.dump([df_train, df_test, x_train, x_test, y_train, id_test], open('preprocessed_data.bin', 'wb'), protocol=2)
+
+
+if __name__ == '__main__':
+    main()

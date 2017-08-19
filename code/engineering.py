@@ -24,7 +24,7 @@ def apply_multithreaded(data, func):
     return result
 
 # This code needs to be removed from global scope, else it will be run by every thread in the mulitprocessing pool when they import this file.
-if __name__ == '__main__':
+def main():
     print('Loading preprocessed data ...')
 
     df_train, df_test, x_train, x_test, y_train, id_test = pickle.load(open('preprocessed_data.bin', 'rb'))
@@ -99,3 +99,6 @@ if __name__ == '__main__':
     print('Serialising data to disk ...')
 
     pickle.dump([x_train, x_test, y_train, id_test], open('engineered_data.bin', 'wb'), protocol=2)
+
+if __name__ == '__main__':
+    main()
