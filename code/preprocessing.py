@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     # Drop non-training features from the set, as well as IDs and y values
     x_train = df_train.drop(['timestamp', 'pickup_datetime', 'dropoff_datetime', 'id', 'trip_duration'], axis=1)
-    x_test = df_test.drop(['timestamp', 'pickup_datetime', 'dropoff_datetime', 'id'], axis=1)
+    x_test = df_test.drop(['timestamp', 'pickup_datetime', 'id'], axis=1)
 
     print(df_train.head())
     print('Preprocessing complete, saving data to disk ...')
