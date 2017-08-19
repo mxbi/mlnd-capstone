@@ -80,3 +80,22 @@ if __name__ == '__main__':
     x_test['hourly_count'] = df_test['hour'].apply(lambda hour: hourly_traffic[hour])
 
     print(x_train[['daily_count', 'hourly_count']].head())
+
+    print('Creating time estimate features ...')
+
+    df_train['haversine_speed'] = x_train['dist_haversine'] / df_train['trip_duration']  # Calculate haversine speed for training set
+    hourly_speed = df_train.groupby('hour')['haversine_speed'].mean()  # Find average haversine_speed for each hour in the training set
+    hourly_speed_fill = df_train['haversine_speed'].mean()  # Get mean across whole dataset for filling unknowns
+
+    # Create feature
+    train_hourly_speed = df_train['hour'].apply(lambda hour: hourly_speed[hour])
+    test_hourly_speed = df_test['hour'].apply(lambda hour: hourly_speed[hour] if hour in hourly_speed else hourly_speed_fill)
+    x_train['haversine_speed_estim'] = x_train['dist_haversine'] / train_hourly_speed
+    x_test['haversine_speed_estim'] = x_test['dist_haversine'] / test_hourly_speed
+
+    print(x_train['haversine_speed_estim'].head())
+
+    print('Feature engineering complete, feature list: {}'.format(x_train.columns.tolist()))
+    print('Serialising data to disk ...')
+
+    pickle.dump([x_train, x_test, y_train, id_test], open('engineered_data.bin', 'wb'), protocol=2)

@@ -2,6 +2,8 @@
 
 **TO REVIEWER: Please note this is an incomplete submission. I am looking for feedback on the ~60% of the project I have completed so far (mainly on the report). Thanks.**
 
+I did not elect to do the capstone proposal for this project.
+
 ### Requirements
 `numpy` (included in Anaconda)
 `pandas` (included in Anaconda)
