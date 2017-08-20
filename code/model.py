@@ -41,7 +41,7 @@ def main():
     print('Training XGBoost model ...')
 
     # Early stop after 50 boosting rounds
-    reg = xgb.train(params, d_train, 10000, watchlist, early_stopping_rounds=5)
+    reg = xgb.train(params, d_train, 10000, watchlist, early_stopping_rounds=10)
 
     # Predict on the test set
     p_test = reg.predict(d_test)
