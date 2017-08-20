@@ -5,28 +5,28 @@ from sklearn.cross_validation import train_test_split
 import xgboost as xgb
 
 def run_model(d_train, d_valid, params):
-    # When computing metrics, XGBoost will do it on these two datasets
     watchlist = [(d_train, 'train'), (d_valid, 'valid')]
 
     # This dictionary stores training results
     res_dict = {}
 
-    # Early stop after 50 boosting rounds
-    reg = xgb.train(params, d_train, 5, watchlist, early_stopping_rounds=10, evals_result=res_dict)
+    # Train a model with the given parameters
+    reg = xgb.train(params, d_train, 100000, watchlist, early_stopping_rounds=10, evals_result=res_dict, verbose=50)
 
+    # Return the best valid-rmse score this model achieved
     return np.min(res_dict['valid']['rmse'])
 
 def optimise_parameter(d_train, d_valid, name, space, params):
     print('Optimising {}'.format(name))
 
     scores = []
-    for trial in space:
-        params[name] = trial
-        score = run_model(d_train, d_valid, params)
+    for trial in space:  # Try all given parameter values
+        params[name] = trial  # Set the parameter
+        score = run_model(d_train, d_valid, params)  # Run a model
         print('Finished running with {} value {}, score {}'.format(name, trial, score))
         scores.append(score)
 
-    print(zip(space, scores))
+    print(zip(space, scores))  # Print out the scores for this parameter
     return scores, np.array(space)[np.argmax(scores)]  # Return best value for parameter
 
 def main():
@@ -68,16 +68,19 @@ def main():
     # Search space
     max_depth = [4, 5, 6, 8, 10, 12, 14]
     colsample_bylevel = [1, 0.9, 0.8, 0.7]
-    subsample = [1, 0.9, 0.8, 7]
+    subsample = [1, 0.9, 0.8, 0.7]
     min_child_weight = [0.5, 1, 2, 3]
 
     # Find the best  max_depth, saving results for each max_depth value
+    # Also set the max_depth to its optimum before proceeding
+    # Repeat this for all four values
     max_depth_scores, params['max_depth'] = optimise_parameter(d_train, d_valid, 'max_depth', max_depth, params)
     colsample_bylevel_scores, params['colsample_bylevel'] = optimise_parameter(d_train, d_valid, 'colsample_bylevel', colsample_bylevel, params)
     subsample_scores, params['subsample'] = optimise_parameter(d_train, d_valid, 'subsample', subsample, params)
     min_child_weight_scores, params['min_child_weight'] = optimise_parameter(d_train, d_valid, 'min_child_weight', min_child_weight, params)
 
-    print(max_depth_Scores, colsample_bylevel_scores, subsample_scores, min_child_weight_scores)
+    # Return our results
+    print(max_depth_scores, colsample_bylevel_scores, subsample_scores, min_child_weight_scores)
 
 if __name__ == '__main__':
     main()

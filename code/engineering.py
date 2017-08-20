@@ -4,8 +4,6 @@ import pickle
 import multiprocessing
 import haversine
 
-import functions
-
 # The number of CPU threads to use for multithreaded operations
 N_THREADS = 8
 
