@@ -35,11 +35,11 @@ def main():
     x_train['dist_l1'] = np.abs(x_train['pickup_latitude'] - x_train['dropoff_latitude']) + np.abs(x_train['pickup_longitude'] - x_train['dropoff_longitude'])
     x_train['dist_l2'] = np.sqrt((x_train['pickup_latitude'] - x_train['dropoff_latitude']) ** 2 + (x_train['pickup_longitude'] - x_train['dropoff_longitude']) ** 2)
     # As haversine is not vectorised, we use the multtithreading approach for speed
-    x_train['dist_haversine'] = apply_multithreaded(x_train[['pickup_latitude', 'pickup_longitude', 'dropoff_latitude', 'dropoff_longitude']], functions.haversine_distance)
+    x_train['dist_haversine'] = apply_multithreaded(x_train[['pickup_latitude', 'pickup_longitude', 'dropoff_latitude', 'dropoff_longitude']], haversine_distance)
 
     x_test['dist_l1'] = np.abs(x_test['pickup_latitude'] - x_test['dropoff_latitude']) + np.abs(x_test['pickup_longitude'] - x_test['dropoff_longitude'])
     x_test['dist_l2'] = np.sqrt((x_test['pickup_latitude'] - x_test['dropoff_latitude']) ** 2 + (x_test['pickup_longitude'] - x_test['dropoff_longitude']) ** 2)
-    x_test['dist_haversine'] = apply_multithreaded(x_test[['pickup_latitude', 'pickup_longitude', 'dropoff_latitude', 'dropoff_longitude']], functions.haversine_distance)
+    x_test['dist_haversine'] = apply_multithreaded(x_test[['pickup_latitude', 'pickup_longitude', 'dropoff_latitude', 'dropoff_longitude']], haversine_distance)
 
     print(x_train[['dist_l1', 'dist_l2', 'dist_haversine']].head())
 

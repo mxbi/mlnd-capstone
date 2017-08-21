@@ -11,13 +11,15 @@ def run_model(d_train, d_valid, params):
     res_dict = {}
 
     # Train a model with the given parameters
-    reg = xgb.train(params, d_train, 100000, watchlist, early_stopping_rounds=10, evals_result=res_dict, verbose=50)
+    reg = xgb.train(params, d_train, 100000, watchlist, early_stopping_rounds=50, evals_result=res_dict, verbose_eval=50)
 
     # Return the best valid-rmse score this model achieved
     return np.min(res_dict['valid']['rmse'])
 
 def optimise_parameter(d_train, d_valid, name, space, params):
     print('Optimising {}'.format(name))
+
+    print(params)
 
     scores = []
     for trial in space:  # Try all given parameter values
@@ -27,7 +29,7 @@ def optimise_parameter(d_train, d_valid, name, space, params):
         scores.append(score)
 
     print(zip(space, scores))  # Print out the scores for this parameter
-    return scores, np.array(space)[np.argmax(scores)]  # Return best value for parameter
+    return scores, np.array(space)[np.argmin(scores)]  # Return best value for parameter
 
 def main():
     print('Loading data from disk ...')
