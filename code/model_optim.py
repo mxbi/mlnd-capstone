@@ -45,7 +45,7 @@ def main():
     print('Training XGBoost model ...')
 
     # Early stop after 50 boosting rounds
-    reg = xgb.train(params, d_train, 10000, watchlist, early_stopping_rounds=100)
+    reg = xgb.train(params, d_train, 10000, watchlist, early_stopping_rounds=10)
 
     reg.save_model('model_optim.mdl')
 
