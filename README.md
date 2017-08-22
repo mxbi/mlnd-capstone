@@ -1,12 +1,9 @@
 # mlnd-capstone
 
-**TO REVIEWER: Please note this is an incomplete submission. I am looking for feedback on the ~60% of the project I have completed so far (mainly on the report). Thanks.**
-
-I did not elect to do the capstone proposal for this project.
-
 ### Requirements
 `numpy` (included in Anaconda)
 `pandas` (included in Anaconda)
+`scikit-learn` (included in Anaconda)
 `haversine` (can be installed with `pip install haversine`)
 `xgboost==0.6` (can be installed with `pip install xgboost` on Linux - on windows it can be obtained from Anaconda cloud)
 
@@ -18,4 +15,6 @@ The dataset can be obtained from the Kaggle competition page: https://www.kaggle
 From inside the code/ folder:
 1. `python processing.py`
 2. `python engineering.py`
-To be continued...
+3. `python model.py` (my initial model)
+4. `python model_search.py` (parameter optimisation)
+5. `python model_optim.py` (the final model)
