@@ -16,6 +16,7 @@ def run_model(d_train, d_valid, params):
     # Return the best valid-rmse score this model achieved
     return np.min(res_dict['valid']['rmse'])
 
+# Loop through options for a parameter and find the best value for that parameter
 def optimise_parameter(d_train, d_valid, name, space, params):
     print('Optimising {}'.format(name))
 

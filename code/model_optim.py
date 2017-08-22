@@ -37,6 +37,7 @@ def main():
     params['silent'] = 1                # Don't print debug messages
     params['eta'] = 0.05                # Learning reduced to a more reasonable rate - this does not need to be tuned as lower is always better
 
+    # Better parameters as decided by optimisation
     params['max_depth'] = 12
     params['colsample_bylevel'] = 0.7
     params['subsample'] = 0.98
@@ -47,6 +48,7 @@ def main():
     # Early stop after 50 boosting rounds
     reg = xgb.train(params, d_train, 10000, watchlist, early_stopping_rounds=50)
 
+    # Save the model file for later analysis
     reg.save_model('model_optim.mdl')
 
     # Predict on the test set
