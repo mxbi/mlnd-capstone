@@ -1,5 +1,7 @@
 # mlnd-capstone
 
+Check out Report.pdf for a in-depth explanation of my approach and solution to this competition.
+
 ### Requirements
 `numpy` (included in Anaconda)  
 `pandas` (included in Anaconda)  
